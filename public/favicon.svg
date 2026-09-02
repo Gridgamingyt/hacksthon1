@@ -1,0 +1,21 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <title>CivicLens AI Logo</title>
+  <defs>
+    <linearGradient id="shield" x1="24" y1="18" x2="100" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#0EA5A4"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="54" y1="24" x2="90" y2="84" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="#EAF2FF"/>
+  <path d="M64 16L92 28V56C92 78.1 80.2 95.7 64 107C47.8 95.7 36 78.1 36 56V28L64 16Z" fill="url(#shield)"/>
+  <path d="M64 46C74.5 46 83 54.5 83 65C83 77.8 69.1 89.1 64 92.5C58.9 89.1 45 77.8 45 65C45 54.5 53.5 46 64 46Z" fill="white" opacity="0.18"/>
+  <path d="M64 35C79.4 35 92 47.6 92 63C92 78.4 79.4 91 64 91C48.6 91 36 78.4 36 63C36 47.6 48.6 35 64 35Z" fill="white" fill-opacity="0.12"/>
+  <path d="M64 50C71.7 50 78 56.3 78 64C78 71.7 71.7 78 64 78C56.3 78 50 71.7 50 64C50 56.3 56.3 50 64 50Z" fill="white" opacity="0.2"/>
+  <path d="M64.5 72C60.9 72 58 69.1 58 65.5C58 62.1 60.8 59.3 64.2 59.3C68 59.3 70.8 62.2 70.8 66C70.8 69.7 67.9 72.5 64.5 72.5V72ZM64.4 63.9C62.8 63.9 61.5 65.2 61.5 66.8C61.5 68.4 62.8 69.6 64.4 69.6C66.1 69.6 67.4 68.3 67.4 66.7C67.4 65.1 66.1 63.9 64.4 63.9Z" fill="#DFF6FF"/>
+  <path d="M72 38.5C72 48.4 64.5 56 54.6 56C44.7 56 37.2 48.5 37.2 38.6C37.2 28.7 44.7 21.2 54.6 21.2C64.5 21.2 72 28.7 72 38.5ZM45.9 38.5C45.9 44.8 50.3 49.2 56.6 49.2C62.9 49.2 67.3 44.8 67.3 38.5C67.3 32.2 62.9 27.8 56.6 27.8C50.3 27.8 45.9 32.2 45.9 38.5Z" fill="url(#pin)"/>
+  <circle cx="56.6" cy="38.6" r="7.2" fill="white"/>
+</svg>
