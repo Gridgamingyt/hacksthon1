@@ -563,7 +563,7 @@ function RoleGuard({ allowedRole, children }) {
         const storedRole = (localStorage.getItem('civic-role') || '').trim().toLowerCase()
         const { data: { user }, error: userError } = await supabase.auth.getUser()
 
-        if (userError) {
+        if (userError && userError.name !== 'AuthSessionMissingError') {
           throw userError
         }
 
