@@ -403,48 +403,18 @@ function normalizeAiResult(result = {}) {
   }
 }
 async function analyzeIssueImage(image) {
-  const apiKey = import.meta.env.VITE_ZENMUX_API_KEY
-  if (!apiKey) throw new Error('VITE_ZENMUX_API_KEY is missing from .env. Add your rotated ZenMux API key and restart the dev server.')
-
-  const model = import.meta.env.VITE_ZENMUX_MODEL || 'openai/gpt-6-luna'
-  const response = await withTimeout(fetch('https://zenmux.ai/api/v1/chat/completions', {
+  const response = await withTimeout(fetch('/api/analyze-issue-image', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model,
-      temperature: 0.2,
-      response_format: { type: 'json_object' },
-      messages: [{
-        role: 'user',
-        content: [
-          {
-            type: 'text',
-            text: `Determine whether this image clearly shows a civic/public-infrastructure issue that a citizen can report to local authorities. Valid examples include a pothole or damaged road, overflowing garbage, a broken streetlight, and a public water leak. Reject unrelated images such as selfies, pets, food, documents, indoor scenes, or ordinary scenery without a visible civic problem. Return only JSON with isCivicIssue (boolean), issueType, description, priority, confidence. Set isCivicIssue to true only when a reportable civic issue is visible. issueType must be exactly one of: ${issueTypes.join(', ')}. priority must be Low, Medium, or High. confidence must be 50-99. Write a concise actionable English description from visible evidence. Use Other only for a visible civic issue that does not fit another type. High means immediate public safety risk, active water leak, or dangerous road damage. Medium means garbage overflow or moderate disruption. Low means minor issue.`,
-          },
-          { type: 'image_url', image_url: { url: image, detail: 'low' } },
-        ],
-      }],
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ image }),
   }), 30000, 'AI image analysis timed out. Please try again.')
 
+  const payload = await response.json().catch(() => null)
   if (!response.ok) {
-    const errorBody = await response.json().catch(() => null)
-    const providerMessage = errorBody?.error?.message || errorBody?.message
-    throw new Error(providerMessage
-      ? `ZenMux request failed (HTTP ${response.status}): ${providerMessage}`
-      : `ZenMux request failed (HTTP ${response.status}). Check your API key, model, and image support.`)
+    throw new Error(payload?.error || `AI image analysis failed (HTTP ${response.status}). Please try again.`)
   }
-
-  const payload = await response.json()
-  const content = payload.choices?.[0]?.message?.content
-  if (typeof content !== 'string' || !content.trim()) throw new Error('ZenMux returned an empty image analysis.')
-  const jsonText = content.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim()
-  return normalizeAiResult(JSON.parse(jsonText))
+  return normalizeAiResult(payload)
 }
-
 function CitizenAvatar({ large = false }) {
   const [avatar, setAvatar] = useState(() => localStorage.getItem('civic-avatar') || '')
   useEffect(() => {
