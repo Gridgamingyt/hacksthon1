@@ -1,0 +1,204 @@
+.image-rejection-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(12, 25, 45, 0.62);
+  backdrop-filter: blur(7px);
+  animation: image-rejection-fade-in 180ms ease-out;
+}
+
+.image-rejection-dialog {
+  position: relative;
+  width: min(100%, 440px);
+  padding: 36px 34px 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 26px;
+  background:
+    radial-gradient(ellipse at 50% -20%, rgba(219, 234, 254, 0.85), transparent 58%),
+    #fff;
+  box-shadow: 0 28px 90px rgba(7, 20, 42, 0.3);
+  text-align: center;
+  animation: image-rejection-pop-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.image-rejection-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #e7edf5;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  color: #64748b;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.image-rejection-close:hover {
+  transform: rotate(90deg);
+  background: #f1f5f9;
+  color: #172b4d;
+}
+
+.image-rejection-close:focus-visible,
+.image-rejection-action:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+.image-rejection-icon {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 17px;
+  place-items: center;
+  border: 1px solid #dbeafe;
+  border-radius: 23px;
+  background: linear-gradient(145deg, #eff6ff, #dbeafe);
+  box-shadow: 0 9px 22px rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+}
+
+.duplicate-image-icon {
+  border-color: #fee2e2;
+  background: linear-gradient(145deg, #fff1f2, #ffe4e6);
+  box-shadow: 0 9px 22px rgba(225, 29, 72, 0.1);
+  color: #e5484d;
+}
+
+.image-rejection-eyebrow {
+  color: #4776b8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.duplicate-image-eyebrow {
+  color: #c24147;
+}
+
+.image-rejection-dialog h2 {
+  margin: 10px 0 9px;
+  color: #152945;
+  font-size: clamp(21px, 5vw, 25px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+}
+
+.image-rejection-dialog > p {
+  max-width: 335px;
+  margin: 0 auto;
+  color: #65748a;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.image-rejection-examples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 21px 0 24px;
+}
+
+.image-rejection-examples span {
+  padding: 7px 10px;
+  border: 1px solid #e4edf8;
+  border-radius: 999px;
+  background: #f7faff;
+  color: #37577e;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.image-rejection-action {
+  display: inline-flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(100deg, #2563eb, #3478f6);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.image-rejection-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 11px 22px rgba(37, 99, 235, 0.28);
+}
+
+.duplicate-image-action {
+  margin-top: 24px;
+  background: linear-gradient(100deg, #d9434b, #ee5a60);
+  box-shadow: 0 8px 18px rgba(217, 67, 75, 0.2);
+}
+
+.duplicate-image-action:hover {
+  box-shadow: 0 11px 22px rgba(217, 67, 75, 0.27);
+}
+
+.image-rejection-dialog > small {
+  display: block;
+  margin-top: 13px;
+  color: #8996a8;
+  font-size: 10px;
+}
+
+.upload-zone.is-analyzing {
+  cursor: progress;
+  opacity: 0.82;
+}
+
+@keyframes image-rejection-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes image-rejection-pop-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 520px) {
+  .image-rejection-backdrop {
+    padding: 16px;
+  }
+
+  .image-rejection-dialog {
+    padding: 32px 22px 24px;
+    border-radius: 22px;
+  }
+
+  .image-rejection-examples {
+    gap: 7px;
+    margin: 18px 0 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-rejection-backdrop,
+  .image-rejection-dialog {
+    animation: none;
+  }
+
+  .image-rejection-close,
+  .image-rejection-action {
+    transition: none;
+  }
+}
